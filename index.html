@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serena Krejci-Papa</title>
+<style>
+  :root {
+    --bg: #faf9f7;
+    --text: #5a5a5a;
+    --text-dark: #444444;
+    --icon-bg: #efeeec;
+    --icon-hover: #e2e0dd;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 1.5rem;
+    min-height: 100vh;
+  }
+
+  h1 {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 2.2rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 2.5rem 0;
+    text-align: center;
+  }
+
+  .photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2.5rem;
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 80% 50%;
+    display: block;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--icon-bg);
+    transition: background-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .links a:hover {
+    background-color: var(--icon-hover);
+    transform: translateY(-2px);
+  }
+
+  .links svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--text);
+  }
+
+  .labels {
+    display: flex;
+    gap: 1.75rem;
+    margin-top: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .labels span {
+    width: 56px;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text);
+  }
+
+  /* --- little runners --- */
+  .runners {
+    position: fixed;
+    inset: auto 0 0 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .runner {
+    position: absolute;
+    left: -70px;
+    width: 40px;
+    height: 73px;
+    animation-name: run-across;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .runner svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+    animation: bob 0.42s ease-in-out infinite;
+  }
+
+  .runner .frame {
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 2.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .sign-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 8px;
+    fill: var(--text-dark);
+    font-weight: 600;
+  }
+
+  .tube-liquid {
+    fill: #a9d6ec;
+    stroke: none;
+  }
+
+  .runner .frame-a { animation: frame-a 0.42s steps(1, end) infinite; }
+  .runner .frame-b { animation: frame-b 0.42s steps(1, end) infinite; }
+
+  .runner .arm {
+    transform-origin: 22px 42px;
+    animation: arm-cheer-l 0.84s ease-in-out infinite;
+  }
+  .runner .arm-r { animation-name: arm-cheer-r; }
+  .runner.arms-down .arm { animation: none; }
+  .runner.arms-down .arm-l { transform: rotate(25deg); }
+  .runner.arms-down .arm-r { transform: rotate(-25deg); }
+  .runner.arms-up .arm { animation: none; }
+  .runner.arms-up .arm-l { transform: rotate(135deg); }
+  .runner.arms-up .arm-r { transform: rotate(-135deg); }
+
+  .runner-a { bottom: 4px; animation-duration: 24s; animation-delay: 0s; }
+  .runner-b { bottom: 30px; animation-duration: 24s; animation-delay: -4s; transform: scale(0.8); opacity: 0.85; }
+  .runner-c { bottom: 4px; animation-duration: 24s; animation-delay: -8s; opacity: 0.95; }
+  .runner-d { bottom: 18px; animation-duration: 24s; animation-delay: -12s; transform: scale(0.9); opacity: 0.9; }
+  .runner-e { bottom: 8px; animation-duration: 24s; animation-delay: -16s; transform: scale(0.95); opacity: 0.9; }
+
+  .runner-cat {
+    width: 58px;
+    height: 33px;
+    bottom: 0;
+    animation-duration: 24s;
+    animation-delay: -20s;
+  }
+
+  @keyframes run-across {
+    from { left: -70px; }
+    to { left: calc(100% + 20px); }
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes arm-cheer-l {
+    0%, 100% { transform: rotate(25deg); }
+    50% { transform: rotate(135deg); }
+  }
+
+  @keyframes arm-cheer-r {
+    0%, 100% { transform: rotate(-25deg); }
+    50% { transform: rotate(-135deg); }
+  }
+
+  @keyframes frame-a {
+    0%, 49.9% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  @keyframes frame-b {
+    0%, 49.9% { opacity: 0; }
+    50%, 100% { opacity: 1; }
+  }
+
+  /* --- catching a figure --- */
+  .runner.caught {
+    animation-play-state: paused;
+    z-index: 5;
+    opacity: 1 !important;
+  }
+
+  .runner.caught svg,
+  .runner.caught .frame-a,
+  .runner.caught .frame-b,
+  .runner.caught .arm {
+    animation-play-state: paused;
+  }
+
+  .runner .bubble {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    width: 190px;
+    background: var(--bg);
+    border: 1.5px solid var(--text);
+    border-radius: 12px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    text-align: left;
+    color: var(--text);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) scale(0.9);
+    transform-origin: bottom center;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  .runner .bubble::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-top-color: var(--text);
+  }
+
+  .runner .bubble::before {
+    content: "";
+    position: absolute;
+    top: calc(100% - 1.5px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5.5px solid transparent;
+    border-top-color: var(--bg);
+    z-index: 1;
+  }
+
+  .runner .bubble p {
+    margin: 0 0 0.35rem 0;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .runner .bubble .source {
+    margin: -0.2rem 0 0.4rem 0;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .runner .bubble a {
+    color: var(--text-dark);
+  }
+
+  .runner.caught .bubble {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .runner { animation: none !important; left: -70px; }
+    .runner svg, .runner .frame-a, .runner .frame-b, .runner .arm { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <h1>Serena Krejci-Papa</h1>
+
+  <div class="photo">
+    <img src="IMG_0323.jpeg" alt="Serena Krejci-Papa">
+  </div>
+
+  <div class="links">
+    <a href="https://substack.com/@sciencewithserena" target="_blank" rel="noopener" aria-label="Substack">
+      <svg viewBox="0 0 24 24"><path d="M22 6.2H2V4h20v2.2zM2 8.9v10.9L12 14l10 5.8V8.9H2zM22 2H2V0h20v2z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/serenakp" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+    </a>
+    <a href="mailto:serenakrejcipapa@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm18.34 2H3.66L12 12.5 20.34 6zM3 7.4V18h18V7.4l-8.65 6.87a1 1 0 0 1-1.25 0L3 7.4z"/></svg>
+    </a>
+    <a href="Website_CV.pdf" target="_blank" rel="noopener" aria-label="CV">
+      <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM7 12h10v1.5H7V12zm0 3.5h10V17H7v-1.5zM7 8.5h5V10H7V8.5z"/></svg>
+    </a>
+  </div>
+
+  <div class="labels">
+    <span>Substack</span>
+    <span>LinkedIn</span>
+    <span>Email</span>
+    <span>CV</span>
+  </div>
+
+  <div class="runners" aria-hidden="true">
+
+    <!-- plain runner -->
+    <div class="runner runner-a">
+      <svg viewBox="0 0 44 80">
+        <g class="frame frame-a">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q16 66 13 74"/>
+          <path d="M22 58 Q28 64 31 72"/>
+        </g>
+        <g class="frame frame-b">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q28 66 31 74"/>
+          <path d="M22 58 Q16 64 13 72"/>
+        </g>
+        <path class="frame arm arm-l" d="M22 42 L22 54"/>
+        <path class="frame arm arm-r" d="M22 42 L22 54"/>
+      </svg>
+      <div class="bubble">
+        <p>"How to Read Scientific Papers (Or, Give Good Dating Advice)"</p>
+        <p class="source">— The Quantum Notebook</p>
+        <a href="https://serenakrejcipapa.substack.com/p/how-to-read-scientific-papers-or" target="_blank" rel="noopener">Read it &rarr;</a>
+      </div>
+    </div>
+
+    <!-- round-glasses runner -->
+    <div class="runner runner-b arms-up">
+      <svg viewBox="0 0 44 80">
+        <g class="frame" style="animation:none; opacity:1;">
+          <circle cx="18" cy="29" r="3.2"/>
+          <circle cx="26" cy="29" r="3.2"/>
+          <path d="M21.2 29 L22.8 29"/>
+        </g>
+        <g class="frame frame-a">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q16 66 13 74"/>
+          <path d="M22 58 Q28 64 31 72"/>
+        </g>
+        <g class="frame frame-b">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q28 66 31 74"/>
+          <path d="M22 58 Q16 64 13 72"/>
+        </g>
+        <path class="frame arm arm-l" d="M22 42 L22 54"/>
+        <path class="frame arm arm-r" d="M22 42 L22 54"/>
+      </svg>
+      <div class="bubble">
+        <p>"Top Five Takeaways from the Quantum Education Summit 2025"</p>
+        <p class="source">— International Year of Quantum</p>
+        <a href="https://quantum2025.org/news-link/top-5-takeaways-from-the-quantum-education-summit-2025/" target="_blank" rel="noopener">Read it &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Schrodinger-equation sign runner -->
+    <div class="runner runner-c">
+      <svg viewBox="0 0 44 80">
+        <rect class="frame" x="2" y="2" width="40" height="17" rx="2" style="animation:none; opacity:1; fill:var(--bg);"/>
+        <text class="sign-text" x="22" y="14" text-anchor="middle">&#292;&#936; = E&#936;</text>
+        <path class="frame" d="M22 42 Q16 32 12 20" style="animation:none; opacity:1;"/>
+        <path class="frame" d="M22 42 Q28 32 32 20" style="animation:none; opacity:1;"/>
+        <g class="frame frame-a">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q16 66 13 74"/>
+          <path d="M22 58 Q28 64 31 72"/>
+        </g>
+        <g class="frame frame-b">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q28 66 31 74"/>
+          <path d="M22 58 Q16 64 13 72"/>
+        </g>
+      </svg>
+      <div class="bubble">
+        <p>"Schr&ouml;dinger's Equation Runs the World"</p>
+        <a href="https://serenakrejcipapa.substack.com/p/schrodingers-equation-runs-the-world" target="_blank" rel="noopener">Read it &rarr;</a>
+      </div>
+    </div>
+
+    <!-- test-tube runner -->
+    <div class="runner runner-d">
+      <svg viewBox="0 0 44 80">
+        <rect class="frame" x="18" y="27" width="8" height="5" style="animation:none; opacity:1;"/>
+        <path class="frame" d="M22 42 Q28 47 30 50" style="animation:none; opacity:1;"/>
+        <path class="frame" d="M26 48 L36 48" style="animation:none; opacity:1;"/>
+        <path class="frame" d="M27 48 L27 62 Q27 66 31 66 Q35 66 35 62 L35 48" style="animation:none; opacity:1;"/>
+        <path class="tube-liquid" d="M27 58 L35 58 L35 62 Q35 66 31 66 Q27 66 27 62 Z"/>
+        <g class="frame frame-a">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q16 66 13 74"/>
+          <path d="M22 58 Q28 64 31 72"/>
+        </g>
+        <g class="frame frame-b">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q28 66 31 74"/>
+          <path d="M22 58 Q16 64 13 72"/>
+        </g>
+        <path class="frame arm arm-l" d="M22 42 L22 54"/>
+      </svg>
+      <div class="bubble">
+        <p>"How Quantum Principles Are Transforming Chemistry"</p>
+        <p class="source">— International Year of Quantum</p>
+        <a href="https://quantum2025.org/news-link/how-quantum-principles-are-transforming-chemistry/" target="_blank" rel="noopener">Read it &rarr;</a>
+      </div>
+    </div>
+
+    <!-- paper-carrier runner -->
+    <div class="runner runner-e">
+      <svg viewBox="0 0 44 80">
+        <path class="frame" d="M22 42 Q28 47 30 50" style="animation:none; opacity:1;"/>
+        <rect class="frame" x="27" y="47" width="11" height="14" rx="1" style="animation:none; opacity:1; fill:var(--bg);"/>
+        <path class="frame" d="M29.5 51 L35.5 51" style="animation:none; opacity:1;"/>
+        <path class="frame" d="M29.5 55 L35.5 55" style="animation:none; opacity:1;"/>
+        <path class="frame" d="M29.5 59 L33.5 59" style="animation:none; opacity:1;"/>
+        <g class="frame frame-a">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q16 66 13 74"/>
+          <path d="M22 58 Q28 64 31 72"/>
+        </g>
+        <g class="frame frame-b">
+          <circle cx="22" cy="30" r="8"/>
+          <path d="M22 38 Q21 49 22 58"/>
+          <path d="M22 58 Q28 66 31 74"/>
+          <path d="M22 58 Q16 64 13 72"/>
+        </g>
+        <path class="frame arm arm-l" d="M22 42 L22 54"/>
+      </svg>
+      <div class="bubble">
+        <p>"What I Read to Make Me a Better (Science) Writer"</p>
+        <p class="source">— The Learning Lab</p>
+        <a href="https://sciencewithserena.substack.com/p/what-i-read-to-make-me-a-better-science" target="_blank" rel="noopener">Read it &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Kenny the cat -->
+    <div class="runner runner-cat">
+      <svg viewBox="0 0 70 40">
+        <g class="frame" style="animation:none; opacity:1;">
+          <ellipse cx="36" cy="24" rx="18" ry="9"/>
+          <circle cx="56" cy="15" r="8"/>
+          <circle cx="59.5" cy="14" r="1" fill="var(--text)" stroke="none"/>
+          <path d="M61 9 L63 2 L57 7 Z"/>
+          <path d="M53 8 L50 1 L49 9 Z"/>
+          <path d="M20 21 Q7 15 12 4"/>
+        </g>
+        <g class="frame frame-a">
+          <path d="M47 31 L49 39"/>
+          <path d="M27 31 L23 39"/>
+        </g>
+        <g class="frame frame-b">
+          <path d="M47 31 L43 39"/>
+          <path d="M27 31 L31 39"/>
+        </g>
+      </svg>
+      <div class="bubble">
+        <p>Congrats, you found Kenny!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    (function () {
+      var runners = document.querySelectorAll('.runner');
+      function releaseAll() {
+        runners.forEach(function (r) { r.classList.remove('caught'); });
+      }
+      runners.forEach(function (r) {
+        r.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var wasCaught = r.classList.contains('caught');
+          releaseAll();
+          if (!wasCaught) r.classList.add('caught');
+        });
+      });
+      document.addEventListener('click', releaseAll);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') releaseAll();
+      });
+    })();
+  </script>
+
+</body>
+</html>
